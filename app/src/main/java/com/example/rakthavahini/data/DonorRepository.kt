@@ -1,30 +1,88 @@
 package com.example.rakthavahini.data
 
 import kotlinx.coroutines.flow.Flow
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class DonorRepository(private val dao: DonorDao) {
 
-    fun getAllDonors(): Flow<List<Donor>> = dao.getAllDonors()
+    // GET ALL DONORS
 
-    fun getEligibleDonors(bloodGroup: String): Flow<List<Donor>> {
+    fun getAllDonors(): Flow<List<Donor>> =
+        dao.getAllDonors()
+
+    // GET ELIGIBLE DONORS
+
+    fun getEligibleDonors(
+        bloodGroup: String
+    ): Flow<List<Donor>> {
+
         val now = System.currentTimeMillis()
-        return dao.getEligibleDonors(bloodGroup, now)
+
+        return dao.getEligibleDonors(
+            bloodGroup,
+            now
+        )
     }
 
-    suspend fun addDonor(donor: Donor): Long = dao.insertDonor(donor)
+    // ADD DONOR
 
-    suspend fun updateDonor(donor: Donor) = dao.updateDonor(donor)
+    suspend fun addDonor(
+        donor: Donor
+    ): Long = dao.insertDonor(donor)
 
-    suspend fun logDonation(donorId: Int, hospitalName: String) {
-        val now = System.currentTimeMillis()
+    // UPDATE DONOR
+
+    suspend fun updateDonor(
+        donor: Donor
+    ) = dao.updateDonor(donor)
+
+    // LOG DONATION
+
+    suspend fun logDonation(
+        donorId: Int,
+        hospitalName: String
+    ) {
+
+        val now =
+            System.currentTimeMillis()
+
+        // INSERT DONATION HISTORY
+
         dao.insertDonationRecord(
-            DonationRecord(donorId = donorId, date = now, hospitalName = hospitalName)
+
+            DonationRecord(
+                donorId = donorId,
+                date = now,
+                hospitalName = hospitalName
+            )
         )
+
+        // UPDATE LAST DONATION DATE
+
         dao.getDonorById(donorId)?.let { donor ->
-            dao.updateDonor(donor.copy(lastDonationDate = now))
+
+            val formattedDate =
+                SimpleDateFormat(
+                    "dd/MM/yyyy",
+                    Locale.getDefault()
+                ).format(Date())
+
+            dao.updateDonor(
+
+                donor.copy(
+                    lastDonationDate = formattedDate
+                )
+            )
         }
     }
 
-    fun getDonationHistory(donorId: Int): Flow<List<DonationRecord>> =
+    // DONATION HISTORY
+
+    fun getDonationHistory(
+        donorId: Int
+    ): Flow<List<DonationRecord>> =
+
         dao.getDonationHistory(donorId)
 }
