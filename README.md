@@ -132,20 +132,22 @@ git clone https://github.com/Tejashwini0505/Raktha-Vahini.git
 ### Login Screen
 ![Login Screen](screenshots/log-in.png)
 
+### Signup Screen
+![Signup Screen](screenshots/sign-up.png)
 
-## signup
-(screenshots/sign-up.png)
-## signup
-(screenshots/forgot password.png)
+### Forgot Password
+![Forgot Password](screenshots/forgot-password.png)
 
-### profile
-![Dashboard](screenshots/profile.png)
+### Profile Screen
+![Profile](screenshots/profile.png)
 
 ### Donor Search
 ![Search](screenshots/search.png)
 
 ### Donation History
-![History](screenshots/donations page.png)
+![History](screenshots/donations-page.png)
 
+## APK Download
+[Download APK](https://drive.google.com/file/d/1IDy_Vf9H0UFGKEnuR7W)
 ## Live url
 https://drive.google.com/file/d/1IDy_Vf9H0UFGKEnuR7W57OHNRhYaVRGq/view?pli=1
