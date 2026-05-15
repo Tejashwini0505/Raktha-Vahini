@@ -14,97 +14,219 @@ import com.example.rakthavahini.data.Donor
 class ProfileFragment : Fragment() {
 
     private val viewModel: DonorViewModel by activityViewModels()
-    private val bloodGroups = listOf("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-")
+
+    private val bloodGroups = listOf(
+        "A+",
+        "A-",
+        "B+",
+        "B-",
+        "AB+",
+        "AB-",
+        "O+",
+        "O-"
+    )
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_profile, container, false)
+    ): View {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val etName = view.findViewById<EditText>(R.id.et_name)
-        val etPhone = view.findViewById<EditText>(R.id.et_phone)
-        val spinnerBlood = view.findViewById<Spinner>(R.id.spinner_blood_group)
-        val switchReady = view.findViewById<Switch>(R.id.switch_ready)
-        val btnSave = view.findViewById<Button>(R.id.btn_save)
+        return inflater.inflate(
+            R.layout.fragment_profile,
+            container,
+            false
+        )
+    }
 
-        spinnerBlood.adapter = ArrayAdapter(
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
+
+        super.onViewCreated(view, savedInstanceState)
+
+        // VIEWS
+
+        val etName =
+            view.findViewById<EditText>(R.id.et_name)
+
+        val etPhone =
+            view.findViewById<EditText>(R.id.et_phone)
+
+        val spinnerBlood =
+            view.findViewById<Spinner>(R.id.spinner_blood_group)
+
+        val switchReady =
+            view.findViewById<Switch>(R.id.switch_ready)
+
+        val btnSave =
+            view.findViewById<Button>(R.id.btn_save)
+
+        // SPINNER
+
+        val adapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
             bloodGroups
-        ).also { it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item) }
+        )
 
-        // Load existing profile
-        val prefs = requireContext()
-            .getSharedPreferences("donor_prefs", Context.MODE_PRIVATE)
-        etName.setText(prefs.getString("name", ""))
-        etPhone.setText(prefs.getString("phone", ""))
-        val savedGroup = prefs.getString("blood_group", "A+") ?: "A+"
-        val groupIndex = bloodGroups.indexOf(savedGroup)
-        spinnerBlood.setSelection(if (groupIndex >= 0) groupIndex else 0)
-        switchReady.isChecked = prefs.getBoolean("is_ready", true)
+        adapter.setDropDownViewResource(
+            android.R.layout.simple_spinner_dropdown_item
+        )
+
+        spinnerBlood.adapter = adapter
+
+        // SHARED PREFS
+
+        val prefs =
+            requireContext().getSharedPreferences(
+                "donor_prefs",
+                Context.MODE_PRIVATE
+            )
+
+        // LOAD DATA
+
+        etName.setText(
+            prefs.getString("name", "")
+        )
+
+        etPhone.setText(
+            prefs.getString("phone", "")
+        )
+
+        val savedGroup =
+            prefs.getString(
+                "blood_group",
+                "A+"
+            ) ?: "A+"
+
+        spinnerBlood.setSelection(
+            bloodGroups.indexOf(savedGroup)
+        )
+
+        switchReady.isChecked =
+            prefs.getBoolean(
+                "is_ready",
+                true
+            )
+
+        // SAVE BUTTON
 
         btnSave.setOnClickListener {
-            val name = etName.text.toString().trim()
-            val phone = etPhone.text.toString().trim()
-            val bloodGroup = spinnerBlood.selectedItem.toString()
-            val isReady = switchReady.isChecked
 
-            if (name.isEmpty() || phone.isEmpty()) {
-                Toast.makeText(requireContext(),
-                    "Please fill in name and phone", Toast.LENGTH_SHORT).show()
+            val name =
+                etName.text.toString().trim()
+
+            val phone =
+                etPhone.text.toString().trim()
+
+            val bloodGroup =
+                spinnerBlood.selectedItem.toString()
+
+            val isReady =
+                switchReady.isChecked
+
+            // VALIDATION
+
+            if (name.isEmpty()) {
+
+                etName.error =
+                    "Enter full name"
+
                 return@setOnClickListener
             }
 
-            val existingId = prefs.getInt("donor_id", -1)
+            if (phone.isEmpty()) {
 
-            if (existingId == -1) {
-                // First time — insert new donor
-                val donor = Donor(
-                    name = name,
-                    phone = phone,
-                    bloodGroup = bloodGroup,
-                    isReadyToDonate = isReady,
-                    lastDonationDate = null
-                )
-                viewModel.addDonor(donor)
+                etPhone.error =
+                    "Enter phone number"
 
-                // Observe the returned ID and save it
-                viewModel.savedDonorId.observe(viewLifecycleOwner) { id ->
-                    if (id != null && id != -1) {
-                        prefs.edit()
-                            .putString("name", name)
-                            .putString("phone", phone)
-                            .putString("blood_group", bloodGroup)
-                            .putBoolean("is_ready", isReady)
-                            .putInt("donor_id", id)
-                            .apply()
-                    }
-                }
-            } else {
-                // Already exists — update same donor, never create a new one
-                val donor = Donor(
-                    id = existingId,
-                    name = name,
-                    phone = phone,
-                    bloodGroup = bloodGroup,
-                    isReadyToDonate = isReady,
-                    lastDonationDate = prefs.getLong("last_donation", -1L)
-                        .takeIf { it != -1L }
-                )
-                viewModel.updateDonor(donor)
-
-                // Update SharedPreferences
-                prefs.edit()
-                    .putString("name", name)
-                    .putString("phone", phone)
-                    .putString("blood_group", bloodGroup)
-                    .putBoolean("is_ready", isReady)
-                    .apply()
+                return@setOnClickListener
             }
 
-            Toast.makeText(requireContext(),
-                "Profile saved!", Toast.LENGTH_SHORT).show()
+            if (
+                phone.length != 10 ||
+                !phone.matches(Regex("[0-9]+"))
+            ) {
+
+                etPhone.error =
+                    "Enter valid 10-digit number"
+
+                return@setOnClickListener
+            }
+
+            val donorId =
+                prefs.getInt(
+                    "donor_id",
+                    -1
+                )
+
+            val donor = Donor(
+
+                id =
+                    if (donorId == -1)
+                        0
+                    else
+                        donorId,
+
+                name = name,
+
+                phone = phone,
+
+                bloodGroup = bloodGroup,
+
+                isReadyToDonate = isReady,
+
+                lastDonationDate =
+                    prefs.getString(
+                        "last_donation",
+                        null
+                    )
+            )
+
+            // INSERT OR UPDATE
+
+            if (donorId == -1) {
+
+                viewModel.addDonor(donor)
+
+            } else {
+
+                viewModel.updateDonor(donor)
+            }
+
+            // SAVE PREFS
+
+            prefs.edit()
+
+                .putString(
+                    "name",
+                    name
+                )
+
+                .putString(
+                    "phone",
+                    phone
+                )
+
+                .putString(
+                    "blood_group",
+                    bloodGroup
+                )
+
+                .putBoolean(
+                    "is_ready",
+                    isReady
+                )
+
+                .apply()
+
+            Toast.makeText(
+                requireContext(),
+                "Profile Updated",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 }
