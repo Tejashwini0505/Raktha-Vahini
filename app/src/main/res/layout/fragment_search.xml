@@ -1,58 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+    <!-- TITLE -->
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Find Blood Donors"
-        android:textSize="22sp"
+        android:text="Search Donors"
+        android:textColor="#CC0000"
+        android:textSize="28sp"
         android:textStyle="bold"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="20dp"/>
+
+    <!-- BLOOD GROUP -->
 
     <Spinner
         android:id="@+id/spinner_blood_group"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginBottom="8dp"/>
+        android:layout_height="56dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_edittext"/>
+
+    <!-- RADIUS -->
 
     <Spinner
         android:id="@+id/spinner_radius"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginBottom="8dp"/>
+        android:layout_height="56dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/bg_edittext"/>
+
+    <!-- SEARCH BUTTON -->
 
     <Button
         android:id="@+id/btn_search"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Search Eligible Donors"
-        android:layout_marginBottom="8dp"/>
+        android:layout_height="56dp"
+        android:text="Search Donors"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:backgroundTint="#CC0000"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- COUNT -->
 
     <TextView
         android:id="@+id/tv_donor_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textColor="#CC0000"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        android:layout_marginBottom="8dp"/>
+        android:text="0 donors found"
+        android:textSize="15sp"
+        android:textColor="#666666"
+        android:layout_marginBottom="10dp"/>
+
+    <!-- NO RESULTS -->
 
     <TextView
         android:id="@+id/tv_no_results"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No eligible donors found. Try a different blood group."
+        android:text="No donors found"
         android:textColor="#888888"
-        android:textSize="15sp"
-        android:gravity="center"
+        android:textSize="16sp"
         android:visibility="gone"
-        android:layout_marginTop="32dp"/>
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"/>
+
+    <!-- RECYCLER VIEW -->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_donors"
