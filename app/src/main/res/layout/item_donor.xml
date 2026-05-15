@@ -1,49 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="12dp"
-    android:gravity="center_vertical">
+    android:padding="14dp"
+    android:layout_margin="8dp"
+    android:gravity="center_vertical"
+    android:background="@drawable/bg_edittext">
+
+    <!-- BLOOD GROUP CIRCLE -->
 
     <TextView
         android:id="@+id/tv_blood_group"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:gravity="center"
-        android:textSize="16sp"
+        android:text="A+"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
         android:textStyle="bold"
-        android:textColor="#CC0000"
         android:background="@drawable/circle_bg_red"/>
+
+    <!-- DONOR DETAILS -->
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:layout_marginStart="12dp">
+        android:layout_marginStart="14dp">
+
+        <!-- NAME -->
 
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:text="Donor Name"
+            android:textColor="#000000"
+            android:textSize="18sp"
             android:textStyle="bold"/>
+
+        <!-- LAST DONATED -->
 
         <TextView
             android:id="@+id/tv_last_donated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#888888"
-            android:textSize="13sp"/>
+            android:text="Never donated"
+            android:textColor="#777777"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"/>
 
     </LinearLayout>
+
+    <!-- CALL BUTTON -->
 
     <Button
         android:id="@+id/btn_call"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Call"/>
+        android:layout_height="40dp"
+        android:text="Call"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#CC0000"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"/>
 
 </LinearLayout>
