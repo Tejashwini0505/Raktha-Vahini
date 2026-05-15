@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF">
@@ -9,79 +9,131 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="32dp"
+        android:padding="24dp"
         android:gravity="center_horizontal">
+
+        <!-- TITLE -->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Create Account"
             android:textColor="#CC0000"
-            android:textSize="28sp"
+            android:textSize="30sp"
             android:textStyle="bold"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="32dp"/>
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="8dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Join our blood donor network"
             android:textColor="#888888"
-            android:textSize="14sp"
-            android:layout_marginBottom="32dp"/>
+            android:textSize="15sp"
+            android:layout_marginBottom="28dp"/>
+
+        <!-- FULL NAME -->
 
         <EditText
             android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_edittext"
+            android:drawableStart="@android:drawable/ic_menu_myplaces"
+            android:drawablePadding="10dp"
             android:hint="Full Name"
             android:inputType="textPersonName"
-            android:padding="12dp"
-            android:background="@drawable/input_bg"
-            android:layout_marginBottom="16dp"/>
+            android:padding="14dp"
+            android:textSize="16sp"/>
+
+        <!-- PHONE OR EMAIL -->
 
         <EditText
-            android:id="@+id/et_phone"
+            android:id="@+id/et_phone_email"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:hint="Phone Number"
-            android:inputType="phone"
-            android:padding="12dp"
-            android:background="@drawable/input_bg"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_edittext"
+            android:drawableStart="@android:drawable/ic_dialog_email"
+            android:drawablePadding="10dp"
+            android:hint="Phone or Email"
+            android:inputType="textEmailAddress"
+            android:padding="14dp"
+            android:textSize="16sp"/>
+
+        <!-- LAST DONATION DATE -->
+
+        <EditText
+            android:id="@+id/et_last_donation"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_edittext"
+            android:clickable="true"
+            android:drawableStart="@android:drawable/ic_menu_my_calendar"
+            android:drawablePadding="10dp"
+            android:focusable="false"
+            android:hint="Last Donation Date"
+            android:padding="14dp"
+            android:textSize="16sp"/>
+
+        <!-- PASSWORD -->
 
         <EditText
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="56dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_edittext"
+            android:drawableStart="@android:drawable/ic_lock_lock"
+            android:drawablePadding="10dp"
             android:hint="Password"
             android:inputType="textPassword"
-            android:padding="12dp"
-            android:background="@drawable/input_bg"
-            android:layout_marginBottom="16dp"/>
+            android:padding="14dp"
+            android:textSize="16sp"/>
+
+        <!-- CONFIRM PASSWORD -->
+
+        <EditText
+            android:id="@+id/et_confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_edittext"
+            android:drawableStart="@android:drawable/ic_lock_lock"
+            android:drawablePadding="10dp"
+            android:hint="Confirm Password"
+            android:inputType="textPassword"
+            android:padding="14dp"
+            android:textSize="16sp"/>
+
+        <!-- BLOOD GROUP -->
 
         <Spinner
             android:id="@+id/spinner_blood_group"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:background="@drawable/input_bg"
-            android:padding="8dp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="18dp"
+            android:background="@drawable/bg_edittext"
+            android:padding="10dp"/>
+
+        <!-- READY SWITCH -->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginBottom="24dp"
             android:gravity="center_vertical"
-            android:layout_marginBottom="24dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="I am ready to donate"
-                android:textSize="15sp"
-                android:textColor="#333333"/>
+                android:text="Ready to donate blood"
+                android:textColor="#333333"
+                android:textSize="16sp"/>
 
             <Switch
                 android:id="@+id/switch_ready"
@@ -91,15 +143,21 @@
 
         </LinearLayout>
 
+        <!-- SIGNUP BUTTON -->
+
         <Button
             android:id="@+id/btn_signup"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="Create Account"
-            android:textSize="16sp"
-            android:textColor="#FFFFFF"
+            android:layout_marginBottom="20dp"
             android:backgroundTint="#CC0000"
-            android:layout_marginBottom="16dp"/>
+            android:text="Create Account"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <!-- SIGN IN -->
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -110,7 +168,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Already have an account? "
-                android:textColor="#888888"/>
+                android:textColor="#888888"
+                android:textSize="15sp"/>
 
             <TextView
                 android:id="@+id/tv_signin"
@@ -118,9 +177,11 @@
                 android:layout_height="wrap_content"
                 android:text="Sign In"
                 android:textColor="#CC0000"
+                android:textSize="15sp"
                 android:textStyle="bold"/>
 
         </LinearLayout>
 
     </LinearLayout>
+
 </ScrollView>
