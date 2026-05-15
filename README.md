@@ -32,9 +32,7 @@ The application is especially useful for rural hospitals, emergency healthcare c
 - Donation History Tracking
 - "Ready to Donate" Availability Toggle
 - Thank You Notification After Donation
-- Offline + Online Data Support
-- Firebase Integration
-- Room Database for Offline Storage
+- Room Database 
 
 ---
 
@@ -46,8 +44,6 @@ The application is especially useful for rural hospitals, emergency healthcare c
 - Android Studio
 
 ### Backend & Database
-- Firebase Authentication
-- Firebase Realtime Database / Firestore
 - Room Database
 
 ### Other Tools
